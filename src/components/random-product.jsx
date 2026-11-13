@@ -32,7 +32,6 @@ export default function RandomProduct() {
         RANDOMIZER
       </button>
 
-      {product && <p>ID: {product.id}</p>}
 
     </div>
   );
