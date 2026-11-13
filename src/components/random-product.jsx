@@ -1,23 +1,39 @@
-import { useEffect } from 'react';
-// import ProductCard from './product-card';
+import { useEffect, useState } from "react";
+import ProductCard from "./product-card";
 
 export default function RandomProduct() {
-	// fetch products depending on the product id https://fakestoreapi.com/products/${productId}
-	useEffect(
-		() => {
-			// write your fetch logic here
-		},
-		[
-			/*productId*/
-		],
-	);
+  const [productId, setProductId] = useState(1);
+  const [product, setProduct] = useState(null);
 
-	// implement a randomize function that returns a random integer from 1 to 20 and updates the productId state variable
-	function randomize() {}
+  useEffect(() => {
+    fetch(`https://fakestoreapi.com/products/${productId}`)
+      .then((res) => res.json())
+      .then((data) => setProduct(data));
+  }, [productId]);
 
-	return (
-		<div>
-			{/* display the ui here. Re-use the product card we built earlier */}
-		</div>
-	);
+  function randomize() {
+    const randomId = Math.floor(Math.random() * 20) + 1;
+    setProductId(randomId);
+  }
+
+  return (
+    <div className="flex flex-col items-center gap-5 p-5">
+
+      {product && (
+        <div className="w-full max-w-sm">
+          <ProductCard {...product} />
+        </div>
+      )}
+
+      <button
+        onClick={randomize}
+        className="bg-orange-500 text-white px-6 py-3 rounded-lg"
+      >
+        RANDOMIZER
+      </button>
+
+      {product && <p>ID: {product.id}</p>}
+
+    </div>
+  );
 }
