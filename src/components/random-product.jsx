@@ -18,6 +18,7 @@ export default function RandomProduct() {
 
   return (
     <div className="flex flex-col items-center gap-5 p-5">
+		<h1>Random Shop</h1>
 
       {product && (
         <div className="w-full max-w-sm">
